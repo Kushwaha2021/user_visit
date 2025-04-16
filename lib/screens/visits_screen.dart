@@ -57,16 +57,7 @@ class VisitsScreen extends StatelessWidget {
                   const Text(
                     '10 MARK',
                     style: TextStyle(color: Colors.white, fontSize: 22,fontWeight: FontWeight.bold),
-                  ),                  const Spacer(),
-                  const Row(
-                    children: [
-                      Icon(Icons.wifi, color: Colors.white, size: 18),
-                      SizedBox(width: 5),
-                      Icon(Icons.signal_cellular_alt, color: Colors.white, size: 18),
-                      SizedBox(width: 5),
-                      Icon(Icons.battery_full, color: Colors.white, size: 18),
-                    ],
-                  )
+                  ),
                 ],
               ),
               const Spacer(),
