@@ -16,78 +16,81 @@ class VisitsScreen extends StatelessWidget {
     final visitCount = visitsProvider.visitCount;
 
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          _buildHeader(context),
-          _buildControls(context, visitCount),
-          _buildVisitList(context, visitsProvider.filteredVisits),
+      body: Column(
+        children: [
+          _buildFixedHeader(context), // not in CustomScrollView
+          Expanded(
+            child: CustomScrollView(
+              slivers: [
+                _buildControls(context, visitCount),
+                _buildVisitList(context, visitsProvider.filteredVisits),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
-    return SliverAppBar(
-      expandedHeight: 180.0,
-      pinned: false,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      automaticallyImplyLeading: false,
-      flexibleSpace: FlexibleSpaceBar(
-        collapseMode: CollapseMode.pin,
-        background: Container(
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 10, left: 16, right: 16, bottom: 10),
-          decoration: BoxDecoration(
-            color: Colors.indigo.shade700,
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildFixedHeader(BuildContext context) {
+    return Container(
+      height: 200,
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).padding.top + 10,
+        left: 16,
+        right: 16,
+        bottom: 10,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.indigo.shade700,
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(20),
+          bottomRight: Radius.circular(20),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
             children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.menu, color: Colors.white),
-                    onPressed: () {  },
-                  ),
-                  const SizedBox(width: 8),
-                  const Text(
-                    '10 MARK',
-                    style: TextStyle(color: Colors.white, fontSize: 22,fontWeight: FontWeight.bold),
-                  ),
-                ],
+              IconButton(
+                icon: const Icon(Icons.menu, color: Colors.white),
+                onPressed: () {},
+              ),
+              const SizedBox(width: 8),
+              const Text(
+                '10 MARK',
+                style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
               ),
               const Spacer(),
-              const Text(
-                'WELCOME BACK',
-                style: TextStyle(color: Colors.white70, fontSize: 14),
-              ),
-              const SizedBox(height: 4),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  const Text(
-                    'Manikanada Krishnan',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  const Spacer(),
-                  // Scooter Image
-                  Image.asset('assets/scooter.png', height: 70,fit: BoxFit.fill,), // Adjust height as needed
-                ],
-              ),
-              const SizedBox(height: 10),
             ],
           ),
-        ),
+          const Spacer(),
+          const Text(
+            'WELCOME BACK',
+            style: TextStyle(color: Colors.white70, fontSize: 14),
+          ),
+          const SizedBox(height: 4),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              const Text(
+                'Manikanada Krishnan',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
+              ),
+              const Spacer(),
+              Image.asset('assets/scooter.png', height: 70, fit: BoxFit.fill),
+            ],
+          ),
+          const SizedBox(height: 10),
+        ],
       ),
     );
   }
+
 
   Widget _buildControls(BuildContext context, int visitCount) {
     return SliverPadding(
